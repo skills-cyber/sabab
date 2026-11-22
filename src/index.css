@@ -1,0 +1,156 @@
+/* --- MANAGED FONT IMPORTS START (do not edit manually) --- */
+/* INTERNAL USE NAME: Heading */
+@import url('https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* INTERNAL USE NAME: Mono */
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* --- MANAGED FONT IMPORTS END --- */
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+
+/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
+
+/* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
+@import './_designSystem/ds-6551b66a-cfd3-4df9-a9b1-9ead8d7fe7e9/index.css';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
+
+/* Sabab tokens — derived from HisabIQ_UI src/theme.css (teal primary, ink neutrals) */
+:root {
+  --background: #f5f7fa;
+  --foreground: #0b1a2c;
+  --card: #ffffff;
+  --card-foreground: #0b1a2c;
+  --popover: #ffffff;
+  --popover-foreground: #0b1a2c;
+  --primary: #0d7c74;
+  --primary-hover: #0a625c;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f4f7;
+  --secondary-foreground: #0b1a2c;
+  --muted: #f3f5f8;
+  --muted-foreground: #5a6b80;
+  --subtle: #607086;
+  --accent: #eaf6f4;
+  --accent-foreground: #0a625c;
+  --destructive: #b92e25;
+  --destructive-foreground: #ffffff;
+  --border: #e3e8ee;
+  --input: #c9d2dd;
+  --ring: #0d7c74;
+  --inverse: #0b1a2c;
+  --success: #116f35;
+  --success-bg: #e8f5ec;
+  --warning: #974407;
+  --warning-bg: #fdf3e3;
+  --danger: #b92e25;
+  --danger-bg: #fcebea;
+  --info: #1e56d3;
+  --info-bg: #eaf0fd;
+  --chart-1: #0d7c74;
+  --chart-2: #1e56d3;
+  --chart-3: #d08a1e;
+  --chart-4: #7a5af8;
+  --chart-5: #b92e25;
+  --radius: 0.625rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #22364f;
+  --sidebar-primary: #0d7c74;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eaf6f4;
+  --sidebar-accent-foreground: #0a625c;
+  --sidebar-border: #e3e8ee;
+  --sidebar-ring: #0d7c74;
+}
+:root.dark {
+  --background: #0b1a2c;
+  --foreground: #edf3fa;
+  --card: #14263b;
+  --card-foreground: #edf3fa;
+  --popover: #14263b;
+  --popover-foreground: #edf3fa;
+  --primary: #3db8ac;
+  --primary-hover: #55cbbd;
+  --primary-foreground: #0b1a2c;
+  --secondary: #1d3047;
+  --secondary-foreground: #edf3fa;
+  --muted: #1d3047;
+  --muted-foreground: #b1bed0;
+  --subtle: #9fafc3;
+  --accent: #133b3a;
+  --accent-foreground: #7edbd0;
+  --destructive: #e5534b;
+  --destructive-foreground: #ffffff;
+  --border: #2e425b;
+  --input: #3a5170;
+  --ring: #3db8ac;
+  --inverse: #22364f;
+  --success: #7ddfab;
+  --success-bg: #13392c;
+  --warning: #f7c47b;
+  --warning-bg: #3b2b17;
+  --danger: #ffaaa1;
+  --danger-bg: #402328;
+  --info: #a4cbff;
+  --info-bg: #1d2f4b;
+  --chart-1: #3db8ac;
+  --chart-2: #6f9dff;
+  --chart-3: #f2b25c;
+  --chart-4: #a48bff;
+  --chart-5: #ff8a80;
+  --sidebar: #14263b;
+  --sidebar-foreground: #d5dde6;
+  --sidebar-primary: #3db8ac;
+  --sidebar-primary-foreground: #0b1a2c;
+  --sidebar-accent: #133b3a;
+  --sidebar-accent-foreground: #7edbd0;
+  --sidebar-border: #2e425b;
+  --sidebar-ring: #3db8ac;
+}
+/* Floating panels are viewport-clamped; never let the page itself scroll sideways. */
+html,
+body {
+  overflow-x: clip;
+}
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background font-sans text-sm text-foreground antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  .font-bn,
+  [lang='bn'] {
+    font-family: 'Hind Siliguri', 'Geist', system-ui, sans-serif;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    inset: 0;
+  }
+}
