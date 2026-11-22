@@ -1,0 +1,59 @@
+import type { AdmissionDoc, Application, Enquiry, SeatPlan, TestSlot } from '../types/admissions';
+
+/** FICTIONAL admissions sample for session 2027 — no real applicant data. */
+
+export const docTemplate = (over: Partial<Record<AdmissionDoc['key'], AdmissionDoc['status']>> = {}): AdmissionDoc[] => [
+{ key: 'birth-cert', label: 'Birth registration certificate', required: true, status: over['birth-cert'] ?? 'missing' },
+{ key: 'photo', label: 'Passport photo (2 copies)', required: true, status: over.photo ?? 'missing' },
+{ key: 'prev-result', label: 'Previous class result / report card', required: true, status: over['prev-result'] ?? 'missing' },
+{ key: 'tc', label: 'Transfer certificate (if transferring)', required: false, status: over.tc ?? 'missing' },
+{ key: 'guardian-nid', label: 'Guardian NID copy', required: true, status: over['guardian-nid'] ?? 'missing' }];
+
+
+const allVerified = { 'birth-cert': 'verified', photo: 'verified', 'prev-result': 'verified', 'guardian-nid': 'verified' } as const;
+
+export const seatPlans: SeatPlan[] = [
+{ grade: 1, campusId: 'uttara', seats: 40 },
+{ grade: 3, campusId: 'uttara', seats: 8 },
+{ grade: 6, campusId: 'mirpur', seats: 12 },
+{ grade: 6, campusId: 'uttara', seats: 10 },
+{ grade: 7, campusId: 'mirpur', seats: 5 },
+{ grade: 9, campusId: 'mirpur', seats: 6 }];
+
+
+export const testSlots: TestSlot[] = [
+{ id: 'TS-01', grade: 6, campusId: 'mirpur', date: '2026-11-14', time: '10:00', room: 'Exam Hall', capacity: 60, passMark: 50 },
+{ id: 'TS-02', grade: 6, campusId: 'uttara', date: '2026-11-15', time: '10:00', room: 'U-Hall', capacity: 40, passMark: 50 },
+{ id: 'TS-03', grade: 7, campusId: 'mirpur', date: '2026-11-14', time: '13:00', room: 'Room 301', capacity: 30, passMark: 55 },
+{ id: 'TS-04', grade: 9, campusId: 'mirpur', date: '2026-11-21', time: '10:00', room: 'Room 301', capacity: 30, passMark: 60 },
+{ id: 'TS-00', grade: 6, campusId: 'mirpur', date: '2026-10-25', time: '10:00', room: 'Exam Hall', capacity: 60, passMark: 50 }];
+
+
+const h = (at: string, actor: string, action: string, tone?: 'success' | 'warning' | 'danger' | 'info', note?: string) => ({ at, actor, action, tone, note });
+
+export const applications: Application[] = [
+{ id: 'APP-2027-031', applicant: 'Rafiul Karim', applicantBn: 'রাফিউল করিম', gender: 'M', dob: '2015-03-12', grade: 6, campusId: 'mirpur', previousSchool: 'Mirpur Ideal Primary School', guardianName: 'Abdul Karim', guardianRelation: 'Father', guardianPhone: '01712-310031', source: 'Walk-in', appliedOn: '2026-10-12', stage: 'tested', testSlotId: 'TS-00', score: 78, docs: docTemplate(allVerified), formFeePaid: true, admissionFeePaid: false, note: '', history: [h('12 Oct 2026', 'Office · Rahima Khatun', 'Application received'), h('25 Oct 2026', 'Exam desk', 'Admission test taken · 78/100', 'info')] },
+{ id: 'APP-2027-032', applicant: 'Sumaiya Akter', applicantBn: 'সুমাইয়া আক্তার', gender: 'F', dob: '2015-06-02', grade: 6, campusId: 'mirpur', previousSchool: 'Sunflower Kindergarten', guardianName: 'Nazma Begum', guardianRelation: 'Mother', guardianPhone: '01815-320032', source: 'Website', appliedOn: '2026-10-13', stage: 'offered', testSlotId: 'TS-00', score: 84, docs: docTemplate(allVerified), formFeePaid: true, admissionFeePaid: false, note: 'Offer valid until 10 Nov', history: [h('13 Oct 2026', 'Website form', 'Online application submitted'), h('25 Oct 2026', 'Exam desk', 'Admission test taken · 84/100', 'info'), h('28 Oct 2026', 'Dr. Nasrin Akter', 'Offer approved · SMS sent to guardian', 'success')] },
+{ id: 'APP-2027-033', applicant: 'Tanvir Hasan', applicantBn: 'তানভীর হাসান', gender: 'M', dob: '2015-01-20', grade: 6, campusId: 'mirpur', previousSchool: 'Pallabi Govt. Primary', guardianName: 'Mizanur Hasan', guardianRelation: 'Father', guardianPhone: '01913-330033', source: 'Referral', appliedOn: '2026-10-15', stage: 'test-scheduled', testSlotId: 'TS-01', docs: docTemplate({ 'birth-cert': 'verified', photo: 'received', 'prev-result': 'received' }), formFeePaid: true, admissionFeePaid: false, note: '', history: [h('15 Oct 2026', 'Office · Rahima Khatun', 'Application received'), h('20 Oct 2026', 'Office · Rahima Khatun', 'Test slot TS-01 assigned · admit card SMS sent', 'info')] },
+{ id: 'APP-2027-034', applicant: 'Anika Rahman', applicantBn: 'আনিকা রহমান', gender: 'F', dob: '2015-08-14', grade: 6, campusId: 'mirpur', previousSchool: 'Rupnagar Model School', guardianName: 'Shahidul Islam', guardianRelation: 'Father', guardianPhone: '01713-555707', source: 'Phone', appliedOn: '2026-10-18', stage: 'applied', docs: docTemplate({ 'birth-cert': 'received', photo: 'received' }), formFeePaid: true, admissionFeePaid: false, siblingOf: 'Ayaan Islam (8-A)', note: 'Sibling discount eligible', history: [h('18 Oct 2026', 'Office · Rahima Khatun', 'Application received')] },
+{ id: 'APP-2027-035', applicant: 'Mahir Chowdhury', applicantBn: 'মাহির চৌধুরী', gender: 'M', dob: '2015-11-09', grade: 6, campusId: 'mirpur', previousSchool: 'Scholars Kids', guardianName: 'Farhana Chowdhury', guardianRelation: 'Mother', guardianPhone: '01614-350035', source: 'Facebook', appliedOn: '2026-10-19', stage: 'waitlisted', testSlotId: 'TS-00', score: 61, docs: docTemplate(allVerified), formFeePaid: true, admissionFeePaid: false, note: 'Waitlist #1', history: [h('19 Oct 2026', 'Website form', 'Online application submitted'), h('25 Oct 2026', 'Exam desk', 'Admission test taken · 61/100', 'info'), h('28 Oct 2026', 'Dr. Nasrin Akter', 'Waitlisted — seats full at merit cut-off', 'warning')] },
+{ id: 'APP-2027-036', applicant: 'Labiba Noor', applicantBn: 'লাবিবা নূর', gender: 'F', dob: '2015-04-27', grade: 6, campusId: 'mirpur', previousSchool: 'Mirpur Ideal Primary School', guardianName: 'Nurul Amin', guardianRelation: 'Father', guardianPhone: '01716-360036', source: 'Walk-in', appliedOn: '2026-10-20', stage: 'admitted', testSlotId: 'TS-00', score: 88, docs: docTemplate(allVerified), formFeePaid: true, admissionFeePaid: true, studentId: 'SN-ADM-036', note: '', history: [h('20 Oct 2026', 'Office · Rahima Khatun', 'Application received'), h('25 Oct 2026', 'Exam desk', 'Admission test taken · 88/100', 'info'), h('28 Oct 2026', 'Dr. Nasrin Akter', 'Offer approved', 'success'), h('30 Oct 2026', 'Cashier · Selim Reza', 'Admission fee ৳5,000 received · RC-2611', 'success'), h('30 Oct 2026', 'Office · Rahima Khatun', 'Admitted · student record created', 'success')] },
+{ id: 'APP-2027-037', applicant: 'Sadman Sakib', applicantBn: 'সাদমান সাকিব', gender: 'M', dob: '2015-02-03', grade: 6, campusId: 'mirpur', previousSchool: 'Pallabi Govt. Primary', guardianName: 'Kamrun Nahar', guardianRelation: 'Mother', guardianPhone: '01817-370037', source: 'Walk-in', appliedOn: '2026-10-20', stage: 'rejected', testSlotId: 'TS-00', score: 38, docs: docTemplate(allVerified), formFeePaid: true, admissionFeePaid: false, note: '', history: [h('20 Oct 2026', 'Office · Rahima Khatun', 'Application received'), h('25 Oct 2026', 'Exam desk', 'Admission test taken · 38/100', 'info'), h('28 Oct 2026', 'Dr. Nasrin Akter', 'Not offered — below pass mark', 'danger')] },
+{ id: 'APP-2027-038', applicant: 'Ishrat Jahan', applicantBn: 'ইশরাত জাহান', gender: 'F', dob: '2014-05-30', grade: 7, campusId: 'mirpur', previousSchool: 'Uttara High School', guardianName: 'Rezaul Karim', guardianRelation: 'Father', guardianPhone: '01918-380038', source: 'Website', appliedOn: '2026-10-22', stage: 'test-scheduled', testSlotId: 'TS-03', docs: docTemplate({ 'birth-cert': 'verified', photo: 'verified', 'prev-result': 'received', tc: 'received', 'guardian-nid': 'verified' }), formFeePaid: true, admissionFeePaid: false, note: 'Transfer mid-session', history: [h('22 Oct 2026', 'Website form', 'Online application submitted'), h('24 Oct 2026', 'Office · Rahima Khatun', 'Test slot TS-03 assigned', 'info')] },
+{ id: 'APP-2027-039', applicant: 'Arnob Das', applicantBn: 'অর্ণব দাস', gender: 'M', dob: '2012-09-18', grade: 9, campusId: 'mirpur', previousSchool: 'Monipur High School', guardianName: 'Prodip Das', guardianRelation: 'Father', guardianPhone: '01719-390039', source: 'Referral', appliedOn: '2026-10-25', stage: 'applied', docs: docTemplate({ photo: 'received' }), formFeePaid: false, admissionFeePaid: false, note: 'Science group requested', history: [h('25 Oct 2026', 'Office · Rahima Khatun', 'Application received · form fee pending', 'warning')] },
+{ id: 'APP-2027-040', applicant: 'Nabila Hossain', applicantBn: 'নাবিলা হোসেন', gender: 'F', dob: '2015-07-07', grade: 6, campusId: 'uttara', previousSchool: 'Uttara Kids Academy', guardianName: 'Delwar Hossain', guardianRelation: 'Father', guardianPhone: '01611-200704', source: 'Facebook', appliedOn: '2026-10-28', stage: 'applied', docs: docTemplate({ 'birth-cert': 'received', photo: 'received', 'prev-result': 'received', 'guardian-nid': 'received' }), formFeePaid: true, admissionFeePaid: false, note: '', history: [h('28 Oct 2026', 'Website form', 'Online application submitted')] },
+{ id: 'APP-2027-041', applicant: 'Rohan Ahmed', applicantBn: 'রোহান আহমেদ', gender: 'M', dob: '2019-12-01', grade: 1, campusId: 'uttara', previousSchool: '—', guardianName: 'Jahid Ahmed', guardianRelation: 'Father', guardianPhone: '01711-200701', source: 'Walk-in', appliedOn: '2026-10-30', stage: 'offered', docs: docTemplate({ 'birth-cert': 'verified', photo: 'verified', 'prev-result': 'verified', 'guardian-nid': 'verified' }), formFeePaid: true, admissionFeePaid: false, note: 'Class 1 — lottery, no written test', history: [h('30 Oct 2026', 'Office · Rahima Khatun', 'Application received'), h('01 Nov 2026', 'Dr. Nasrin Akter', 'Selected in lottery · offer sent', 'success')] },
+{ id: 'APP-2027-042', applicant: 'Fariha Islam', applicantBn: 'ফারিহা ইসলাম', gender: 'F', dob: '2015-10-11', grade: 6, campusId: 'mirpur', previousSchool: 'Mirpur Ideal Primary School', guardianName: 'Monir Islam', guardianRelation: 'Father', guardianPhone: '01511-200609', source: 'Website', appliedOn: '2026-11-01', stage: 'withdrawn', docs: docTemplate({ photo: 'received' }), formFeePaid: true, admissionFeePaid: false, note: 'Family relocating to Chattogram', history: [h('01 Nov 2026', 'Website form', 'Online application submitted'), h('02 Nov 2026', 'Office · Rahima Khatun', 'Withdrawn by guardian', 'warning')] }];
+
+
+export const enquiries: Enquiry[] = [
+{ id: 'ENQ-118', name: 'Guardian of Rayan', phone: '01712-118118', grade: 6, campusId: 'mirpur', source: 'Phone', on: '2026-11-02', followUp: '2026-11-03', status: 'new', note: 'Asked about bus route from Kazipara' },
+{ id: 'ENQ-117', name: 'Shirin Akter', phone: '01815-117117', grade: 3, campusId: 'uttara', source: 'Facebook', on: '2026-11-01', followUp: '2026-11-02', status: 'new', note: 'Wants campus visit on Saturday' },
+{ id: 'ENQ-116', name: 'Habibur Rahman', phone: '01913-116116', grade: 9, campusId: 'mirpur', source: 'Walk-in', on: '2026-10-31', followUp: '2026-11-04', status: 'contacted', note: 'Science group seats? Sent prospectus' },
+{ id: 'ENQ-115', name: 'Tania Sultana', phone: '01614-115115', grade: 1, campusId: 'uttara', source: 'Website', on: '2026-10-30', followUp: '2026-11-01', status: 'contacted', note: 'Lottery date asked — follow-up overdue' },
+{ id: 'ENQ-114', name: 'Kamal Uddin', phone: '01716-114114', grade: 6, campusId: 'mirpur', source: 'Referral', on: '2026-10-28', followUp: '2026-10-30', status: 'converted', note: 'Applied as APP-2027-039' },
+{ id: 'ENQ-113', name: 'Sabina Yasmin', phone: '01817-113113', grade: 7, campusId: 'mirpur', source: 'Phone', on: '2026-10-26', followUp: '2026-10-29', status: 'lost', note: 'Chose another school (fees)' }];
+
+
+export const ADMISSION_FEE = 5000;
+export const FORM_FEE = 500;
